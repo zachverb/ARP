@@ -1,0 +1,71 @@
+* {
+	
+}
+
+body {
+	padding:0px;
+	margin: 0px;
+}
+
+select {
+   =-webkit-appearance: none;
+	width: 100px;
+	height: 33px;
+	padding: 5px;
+	border: 1px solid #0e0e0e;
+	background: rgba(0,0,0,3);
+	color: #ffffff;
+	font-weight: bold;
+}
+
+ul {
+	list-style: none;
+}
+
+#sqr {
+	position: relative;	
+	width:100px; 
+	height:100px; 
+	color:white; 
+	background-color:black;
+	cursor: none;
+}
+
+
+#console {
+	float: left;
+	margin-right: auto;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-bottom: auto;
+	height:100%;
+	width: 75%;
+	background-color:#269;
+	background-size:100px 100px, 100px 100px, 20px 20px, 20px 20px;
+	background-position: /* -2px -2px, -2px -2px, -1px -1px, -1px -1px; */ 0px, 0px, 0px, 0px, 0px, 0px, 0px, 0px;
+	border: 2px solid #0D6561;
+}
+
+#panel {
+	display: inline-block;
+	float: right;
+	width:24%;
+	height:50%;
+	background-color:black;
+	color:white;
+	font-family:Helvetica;
+	font-weight:bold;
+	margin-top: 0%
+}
+
+#audiocanvas {
+	display: inline=block;
+	float: right;
+	width: 24%;
+	height:50%;
+	background-color:black;
+	color: white;
+	font-family:Helvetica;
+	font-weight:bold;
+	padding:0px;
+}
