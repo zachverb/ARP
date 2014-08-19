@@ -45,7 +45,7 @@ window.onload = function() {
 	analyser.smoothingTimeConstant = 0.8;
 	analyser.fftSize = 512;
 
-	//drawSpectrum();
+	drawSpectrum();
 
 	// array of all available frequencies
 	var freqs = [65.406, 69.296, 73.416, 77.782, 82.407, 87.31, 92.50, 98.00, 103.83, 110.00, 116.54, 123.47, 130.81, 138.59, 146.83, 155.56, 164.81, 174.61, 185.00, 196.00, 207.65, 220.00, 233.08, 246.94, 261.63, 277.18, 293.67, 311.13, 329.63, 349.23, 369.99, 392.00, 415.30, 440, 466.16, 493.88, 523.25, 554.37, 587.33, 622.25, 659.26, 698.46, 739.99, 783.99, 830.61, 880.00, 932.33, 987.77, 1046.50, 1108.73, 1174.66, 1244.51, 1318.51, 1396.91, 1479.98, 1567.98, 1661.22, 1760.00, 1864.66, 1975.53, 2093.00];
@@ -124,16 +124,15 @@ window.onload = function() {
 		turnOffOsc();
 	};
 
-	setFilterFrequency = function () {
+	function setFilterFrequency() {
 	    var min = 40; // min 40Hz
 	    var max = context.sampleRate / 2; // max half of the sampling rate
 	    var numberOfOctaves = Math.log(max / min) / Math.LN2; // Logarithm (base 2) to compute how many octaves fall in the range.
 	    var multiplier = Math.pow(2, numberOfOctaves * (((2 / (viewport.offsetTop + viewport.offsetHeight)) * ((viewport.offsetTop + viewport.offsetHeight) - window.event.clientY)) - 1.0)); // Compute a multiplier from 0 to 1 based on an exponential scale.
 	    nodes.filter.frequency.value = max * multiplier; // Get back to the frequency value between min and max.
-	    //sqr.innerText = max * multiplier;
 	};
 
-	setArpSpeed = function() {
+	function setArpSpeed() {
 		if(speed === "varied") {
 			return (((window.event.clientY / 100) * 50) + 100);
 		} else {
@@ -141,7 +140,7 @@ window.onload = function() {
 		}
 	}
 
-	drawSpectrum = function() {
+	function drawSpectrum() {
 		var WIDTH = canvas.width,
 			HEIGHT= canvas.height,
 			array =  new Uint8Array(analyser.frequencyBinCount);
