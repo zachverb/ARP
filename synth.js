@@ -1,16 +1,19 @@
-window.onload = function() {
+window.onload = function() {	
 	context = new webkitAudioContext();
 	osc = document.getElementById("sqr");
-	viewport = document.getElementById("viewport");
-	wave = document.getElementById("waveform");
-	interval = document.getElementById("interval");
-	onOff = document.getElementById("onOff");
-	filter = document.getElementById("filter");
-	speed = document.getElementById("speed");
-	canvas = document.getElementById("audiocanvas");
+	viewport = document.getElementById("viewport"); //the synth's screen
+	wave = document.getElementById("waveform"); //the waveform controller
+	interval = document.getElementById("interval"); //the interval controller
+	onOff = document.getElementById("onOff");	//turns arpeggiator on and off
+	filter = document.getElementById("filter");	// the filter controller
+	speed = document.getElementById("speed"); 	//changes the speed of the arpeggiation
+	canvas = document.getElementById("audiocanvas"); // the element that displays the spectrum analyzer
 	octave = document.getElementById("octave");
 
+
 	var analyser = context.createAnalyser();
+	
+	// object which holds all the nodes
 	var nodes = {};
 
 	var ctx = canvas.getContext("2d");
@@ -29,7 +32,7 @@ window.onload = function() {
 	nodes.delay = context.createDelay();
 	nodes.feedbackGain = context.createGain();
 
-	//connect it all
+	// Connect all the nodes together
 	nodes.filter.connect(nodes.volume);
 	nodes.filter.connect(nodes.delay);
 	nodes.delay.connect(nodes.feedbackGain);
@@ -52,35 +55,9 @@ window.onload = function() {
 
 
 
-	osc.onmousedown = function () 
-	{
-		// takes in an algorithmic value from the x and y location
-		var locValue = Math.floor((window.event.clientX / (freqs.length * 1.8)) % freqs.length + parseInt(octave.value)); 
-		var oscPitch = freqs[locValue];
-		mouseLocation = window.event.clientX;
-		oscillator = context.createOscillator();
-		nodes.filter.type = parseInt(filter.value);
-		oscillator.type = parseInt(wave.value);
-		oscillator.frequency.value = oscPitch;
-		setFilterFrequency();
-		var direction = parseInt(interval.value);
-		if (onOff.value === "true") {
-			arp = setInterval(function() {
-				// once you've gone out of bounds in the array, change direction until you're out of bounds again
-				if(locValue + direction >= freqs.length || locValue + direction <= 0) {
-					direction = -direction;
-				}
-				locValue += direction;
-				createosc(locValue)
-				setFilterFrequency();
-			},setArpSpeed());
-		} else {
-			arp = setInterval(0,0);
-		}
-		oscillator.connect(nodes.filter);
-		oscillator.noteOn(0);
-		oscisrunning = true;
-	};
+	osc.onmousedown = startSynth;
+
+	osc.onmouseup = turnOffOsc;
 
 	osc.onmousemove = function () 
 	{
@@ -99,7 +76,7 @@ window.onload = function() {
 							direction = -direction;
 						}
 						locValue += direction;
-						createosc(locValue)
+						createOsc(locValue)
 					},setArpSpeed());
 				} else {
 					arp = setInterval(0,0);
@@ -110,7 +87,7 @@ window.onload = function() {
 		
 	};
 
-	createosc = function (pitch)
+	function createOsc(pitch)
 	{
 		oscillator.disconnect();
 		oscillator = context.createOscillator();
@@ -120,8 +97,34 @@ window.onload = function() {
 		oscillator.noteOn(0);
 	};
 
-	osc.onmouseup = function () {
-		turnOffOsc();
+	function startSynth() 
+	{
+		// takes in an algorithmic value from the x location
+		var locValue = Math.floor((window.event.clientX / (freqs.length * 1.8)) % freqs.length + parseInt(octave.value)); 
+		var oscPitch = freqs[locValue];
+		mouseLocation = window.event.clientX;
+		oscillator = context.createOscillator();
+		nodes.filter.type = parseInt(filter.value);
+		oscillator.type = wave.value;
+		oscillator.frequency.value = oscPitch;
+		setFilterFrequency();
+		var direction = parseInt(interval.value);
+		if (onOff.value === "true") {
+			arp = setInterval(function() {
+				// once you've gone out of bounds in the array, change direction until you're out of bounds again
+				if(locValue + direction >= freqs.length || locValue + direction <= 0) {
+					direction = -direction;
+				}
+				locValue += direction;
+				createOsc(locValue)
+				setFilterFrequency();
+			},setArpSpeed());
+		} else {
+			arp = setInterval(0,0);
+		}
+		oscillator.connect(nodes.filter);
+		oscillator.noteOn(0);
+		oscisrunning = true;
 	};
 
 	function setFilterFrequency() {

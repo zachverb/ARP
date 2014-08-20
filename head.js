@@ -16,9 +16,6 @@ function setValues()
 	if (y > (0 + viewport.offsetTop + sqr.offsetHeight/2) + 2 && y <= (viewport.offsetTop + viewport.offsetHeight - sqr.offsetWidth/2)) {
 		sqr.style.top = (window.event.clientY - 50);
 	}
-	else {
-		//turnOffOsc();
-	}
 };
 
 function turnOffOsc() 

@@ -23,6 +23,8 @@ ul {
 }
 
 #sqr {
+	left:45%;
+	top:45%;
 	position: relative;	
 	width:100px; 
 	height:100px; 
