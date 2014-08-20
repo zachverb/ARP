@@ -16,10 +16,10 @@ window.onload = function() {
 	var ctx = canvas.getContext("2d");
 
 	var gradient = ctx.createLinearGradient(0,0,0,canvas.height);
-	    gradient.addColorStop(1,'#550000');
-	    gradient.addColorStop(0.75,'#ff0000');
-	    gradient.addColorStop(0.25,'#ffff00');
-	    gradient.addColorStop(0,'#ffff00');
+	    gradient.addColorStop(1,'#8CB7E1');
+	    gradient.addColorStop(0.75,'#E8E1CE');
+	    gradient.addColorStop(0.25,'#F8CB00');
+	    gradient.addColorStop(0,'#C85914');
 
 	ctx.fillStyle = gradient;
 
