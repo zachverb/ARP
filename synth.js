@@ -104,7 +104,7 @@ window.onload = function() {
 		var oscPitch = freqs[locValue];
 		mouseLocation = window.event.clientX;
 		oscillator = context.createOscillator();
-		nodes.filter.type = parseInt(filter.value);
+		nodes.filter.type = filter.value;
 		oscillator.type = wave.value;
 		oscillator.frequency.value = oscPitch;
 		setFilterFrequency();
